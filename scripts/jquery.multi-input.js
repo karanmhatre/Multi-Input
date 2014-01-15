@@ -1,21 +1,20 @@
 (function($) {
-	$.OSF = {
+	$.multiInput = {
 		defaults: {
 			max: 10,
-			min: 1
+			min: 1,
+			prepopulate: []
 		}
 	};
 
-	$.fn.osf = function(config) {
+	$.fn.multiInput = function(config, fileNames) {
 
-		var config = $.extend({}, $.OSF.defaults, config);
+		var config = $.extend({}, $.multiInput.defaults, config);
 
-		var $this = $(this);
+		$this = $(this);
 
-		$this.addClass('OSF');
-
-		var fieldsCounter = config.min;		
-		
+		$this.addClass('OSF');	
+			
 		$this.wrap("<div>"); //wraping in <div>
 		$this.parent().addClass('multi-field-container'); //giving div a class
 		
@@ -27,21 +26,37 @@
 		
 		// creating add and remove buttons
 		$('<a>',{
-    		class: 'remove_multi_input_field btn',
-    		text: '-'
+	    	class: 'remove_multi_input_field btn',
+	    	text: '-'
 			}).appendTo($this);
-		
-		
+			
+			
 		$('<a>',{
-    		class: 'add_multi_input_field btn',
-    		text: '+'
+	    	class: 'add_multi_input_field btn',
+	    	text: '+'
 			}).insertAfter(config.multiDiv);
+		
 
-		$(this).minClone(config);
+		if(!config.prepopulate.length || config.min<config.prepopulate.length) 
+
+			$(this).minClone(config);
+		
+		// else{
+
+		// 	if(config.min > config.prepopulate.length)
+		// 		for(var x=0; x<config.min; x++)
+		// 			$(this).initializationOfPrepopulatedData(config, x);
+
+			else
+				// for(var x=0; x<config.prepopulate.length; x++)
+					$(this).initializationOfPrepopulatedData(config);
+		// }
+
+		var fieldsCounter = config.min;
 
 		config.mainContainer.children('.add_multi_input_field').click(function(){		
 
-			if(fieldsCounter < config.max) 
+		if(fieldsCounter < config.max) 
 			{
 				$(this).clickAdd(config);
 				fieldsCounter++;
@@ -55,7 +70,6 @@
 				fieldsCounter--;
 			}
 		});
-
 	};
 
 	/* Initialize the number of fields present to match the minimum number specified in the config */
@@ -75,13 +89,43 @@
 		var $lastFieldDiv = config.multiDiv.children().last();
 
 		var $fieldsClone = $lastFieldDiv.clone(true);
-		$fieldsClone.children().val(null);
+		$fieldsClone.find('input').val(null);
 		$fieldsClone.insertAfter($lastFieldDiv);
 	};
 	
 	$.fn.clickRemove = function(config) {
 
 		$(this).parent().remove(); 
+	};
+
+	$.fn.initializationOfPrepopulatedData = function(config) {
+		
+		for(var x=0; x<config.prepopulate.length; x++){
+			
+			if(x==0)
+				
+				var findInputField = $(this).find('input').val(config.prepopulate[x]);
+			
+			else
+			{
+				var $lastFieldDiv = config.multiDiv.children().last();
+				var $fieldsClone = $lastFieldDiv.clone(true);
+				$fieldsClone.find('input').val(config.prepopulate[x]);
+				$fieldsClone.insertAfter($lastFieldDiv);
+			}
+		}
+		
+		if(config.min>config.prepopulate.length)
+			
+			for(var x=0; x<config.min-config.prepopulate.length; x++){
+
+				var $lastFieldDiv = config.multiDiv.children().last();
+				var $fieldsClone = $lastFieldDiv.clone(true);
+				$fieldsClone.find('input').val(null);
+				$fieldsClone.insertAfter($lastFieldDiv);
+			
+			}
+
 	};
 
 })(jQuery);

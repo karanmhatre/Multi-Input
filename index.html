@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title></title>
+		<title>Multi Input Plugin</title>
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="main.css">
 	</head>
@@ -18,13 +18,10 @@
 					    <label for="children">Childrens' name</label>
 					    <div class="children_field">
 					    	<div class="row">
-					    		<div class="col-lg-6">
+					    		<div class="col-lg-12">
 					    			<input type="text" class="form-control " placeholder="First Name">
 					    		</div>					    		
-					    		<div class="col-lg-6">
-					    			<input type="text" class="form-control " placeholder="Last Name">
-					    		</div>
-					    	</div>					    	
+					       	</div>					    	
 					    </div>
 					  </div>
 					</form>
@@ -35,12 +32,13 @@
 
 	<script src="scripts/jquery-1.10.2.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="scripts/jform.js" type="text/javascript"></script>
+	<script src="scripts/jquery.multi-input.js" type="text/javascript"></script>
 	
 	<script>
-		$(".children_field").osf({
+		$(".children_field").multiInput({
 			max: 5,
-			min: 3
+			min: 3,
+			prepopulate: ["Parth","Karan","Shruti"]
 		});
 	</script>
 </html>
