@@ -1,14 +1,14 @@
 (function($) {
-	$.OSF = {
+	$.multiInput = {
 		defaults: {
 			max: 10,
 			min: 1
 		}
 	};
 
-	$.fn.osf = function(config) {
+	$.fn.multiInput = function(config) {
 
-		var config = $.extend({}, $.OSF.defaults, config);
+		var config = $.extend({}, $.multiInput.defaults, config);
 
 		var $this = $(this);
 
