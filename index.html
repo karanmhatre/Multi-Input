@@ -18,13 +18,10 @@
 					    <label for="children">Childrens' name</label>
 					    <div class="children_field">
 					    	<div class="row">
-					    		<div class="col-lg-6">
+					    		<div class="col-lg-12">
 					    			<input type="text" class="form-control " placeholder="First Name">
 					    		</div>					    		
-					    		<div class="col-lg-6">
-					    			<input type="text" class="form-control " placeholder="Last Name">
-					    		</div>
-					    	</div>					    	
+					       	</div>					    	
 					    </div>
 					  </div>
 					</form>
@@ -40,7 +37,8 @@
 	<script>
 		$(".children_field").multiInput({
 			max: 5,
-			min: 3
+			min: 3,
+			prepopulate: ["Parth","Karan","Shruti"]
 		});
 	</script>
 </html>
